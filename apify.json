@@ -1,0 +1,11 @@
+{
+	"name": "amazon-caller",
+	"version": "0.0",
+	"buildTag": "latest",
+	"env": {
+    "APIFY_TOKEN": "@apifyToken",
+    "APIFY_USER_ID": "@apifyUserId",
+    "APIFY_ACTOR_TASK_ID": "esTSfRFPChwAy3R2Y"
+  },
+	"template": "hello_world"
+}
