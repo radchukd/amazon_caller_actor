@@ -17,7 +17,13 @@ Apify.main(async () => {
                     userId,
                     token,
                 });
-                return apifyClient.tasks.runTask({ taskId, token, memory, timeout: 0 });
+                return apifyClient.tasks.runTask({
+                    taskId,
+                    token,
+                    memory,
+                    timeout: 0,
+                    waitForFinish: 120,
+                });
             }
             const runTaskUrl = `https://api.apify.com/v2/actor-tasks/${taskId}/run-sync?token=${token}&ui=1`;
             return httpRequest({
@@ -27,10 +33,9 @@ Apify.main(async () => {
                 body: { memory },
             });
         })
-        .then(async (res) => {
-            console.log(res);
+        .then(async () => {
             const lastRunUrl = `https://api.apify.com/v2/actor-tasks/${taskId}/runs/last/dataset/`
-                     + `items?token=${token}&format=csv&limit=${maxItems}&fields=${fields}`;
+                                + `items?token=${token}&format=csv&limit=${maxItems}&fields=${fields}`;
             const { body } = await httpRequest({ url: lastRunUrl });
             await Apify.setValue('OUTPUT', { output: body });
         });
